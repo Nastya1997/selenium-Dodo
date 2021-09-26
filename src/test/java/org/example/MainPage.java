@@ -32,9 +32,7 @@ public class MainPage {
     private WebElement chooseMenuPizza;
 
     //локатор для нахождения определенного вида пиццы
-    @FindBy(xpath = "//div[contains(text(), '%text%')]")
-            //"//article[contains(@data-testid,'menu__meta-product_86')]"
-            //+
+    @FindBy(xpath = "//div[contains(text(), 'Четыре сезона')]")
     private WebElement searchKindPizza;
 
     //локатор для нахождения кнопки Выбрать (при выборе определенного вида пиццы)
@@ -78,7 +76,7 @@ public class MainPage {
     //поиск определенного вида пиццы
     public void searchKindOfPizza() {
         scrollToElement(searchKindPizza);
-        driverWait.until(ExpectedConditions.visibilityOf(searchKindPizza);
+        driverWait.until(ExpectedConditions.visibilityOf(searchKindPizza));
         scrollToElement(buttonChoose);
         driverWait.until(ExpectedConditions.visibilityOf(buttonChoose));
         driverWait.until(ExpectedConditions.elementToBeClickable(buttonChoose));

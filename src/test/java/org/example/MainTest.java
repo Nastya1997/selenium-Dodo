@@ -17,7 +17,7 @@ public class MainTest {
 
     @BeforeClass
     public static void setup() {
-        System.setProperty("webdriver.chrome.driver", "C:\\projects\\lib\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "lib\\chromedriver.exe");
 
         driver = new ChromeDriver();
         mainPage = new MainPage(driver);
@@ -32,13 +32,13 @@ public class MainTest {
     @Test
     public void loginTest() throws InterruptedException {
         mainPage.inputSearchCity("омск");
-        mainPage.chooseCity();
-        mainPage.chooseMenu();
-        mainPage.searchKindOfPizza();
-        mainPage.checkPizza();
-        mainPage.addToBucket();
-        mainPage.goToBucket();
-        mainPage.checkingBucket();
+        mainPage.chooseCity(); // выбор найденного города из списка
+        mainPage.chooseMenu(); // выбор вида еды "Пицца"
+        mainPage.searchKindOfPizza(); // скролл до пиццы "Четыре сезона" и выбор
+        mainPage.checkPizza(); // открытие карточки пиццы и сверка, что открыта "Четыре сезона"
+        mainPage.addToBucket(); // добавление в корзину
+        mainPage.goToBucket(); // переход в корзину
+        mainPage.checkingBucket(); // проверка, что в корзине "Четыре сезона"
     }
 
     @AfterClass
