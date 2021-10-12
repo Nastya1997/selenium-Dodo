@@ -20,42 +20,38 @@ public class MainPage {
 
     //локатор для нахождения нужного города на странице
     @FindBy(xpath = "//a[@class='sc-176km0j-0 fiArIx locality-selector-popup__link ']")
-    private List<WebElement> clickCity;
+    private List<WebElement> location;
 
-    //локатор для нахождения подменю "Пицца"
-    @FindBy(xpath = "//a[contains(text(), 'Пицца')]")
-    private WebElement chooseMenuPizza;
+    //локатор для выбора вида блюда
+    @FindBy(xpath = "//a..li[@class='ymp2tw-2 gWaecf']")
+    private List<WebElement> menuBar;
 
     //локатор для нахождения определенного вида пиццы
-    @FindBy(xpath = "//div[contains(text(), 'Четыре сезона')]")
-    private WebElement searchKindPizza;
-
-    //локатор для нахождения кнопки Выбрать (при выборе определенного вида пиццы)
-    @FindBy(xpath = "//article[contains(@data-testid,'menu__meta-product_86')]//button[contains(text(), 'Выбрать')]")
-    private WebElement buttonChoose;
+    @FindBy(xpath = "//section[contains(@id, 'pizzas')]//div[@data-gtm-id='product-title']")
+    private List<WebElement> titlePizza;
 
     //локатор для нахождения кнопки Добавить в корзину за ..
     @FindBy(xpath = "//button[contains(text(), 'Добавить в корзину за ')]")
     private WebElement buttonAdd;
 
     //локатор для нахождения заголовка в открываемой карточке пиццы при нахождении
-    @FindBy(xpath = "//span[contains(text(), 'Четыре сезона')]")
-    private WebElement checkTitle;
+    @FindBy(xpath = "//div[@class='k0j10-1 eqmleZ']//span")
+    private List<WebElement> checkingTitle;
 
     //локатор для нахождения кнопки Корзина
-    @FindBy(xpath = "//button[contains(@class, 'sc-91ilwk-0 bwflEA sc-1bwqahw-2 eWmtEY')]")
-    private WebElement bucket;
+    @FindBy(xpath = "//button[contains(text(),'Корзина')]")
+    private WebElement buttonBucket;
 
     //локатор для нахождения заголовка в открытой корзине
-    @FindBy(xpath = "//h3[contains(text(), 'Четыре сезона')]")
-    private WebElement checkTitleBucket;
+    @FindBy(xpath = "//h3")
+    private WebElement checkingTitleBucket;
 
-    @FindBy(xpath = "//nav//a")
-    private List<WebElement> menuBar;
+//    @FindBy(xpath = "//nav//a")
+//    private List<WebElement> menuBar;
 
     //клик по нужному городу
     public MainPage chooseCity(String cityDesirable) {
-        for (WebElement city : clickCity) {
+        for (WebElement city : location) {
             if (city.getText().equals(cityDesirable)) {
                 scrollToElement(city);
                 waitUntilVisible(city);
@@ -67,18 +63,29 @@ public class MainPage {
     }
 
     //клик по подменю Пицца
-    public void chooseMenu() {
-        chooseMenuPizza.click();
+    public MainPage chooseMenu(String menuType) {
+        for(WebElement menu : menuBar) {
+            if(menu.getText().equals(menuType)) {
+                waitUntilClickable(menu);
+                menu.click();
+                break;
+            }
+        }
+        return this;
     }
 
-    //поиск определенного вида пиццы
-    public void searchKindOfPizza() {
-        scrollToElement(searchKindPizza);
-        waitUntilVisible(searchKindPizza);
-        scrollToElement(buttonChoose);
-        waitUntilVisible(buttonChoose);
-        waitUntilClickable(buttonChoose);
-        buttonChoose.click();
+    //поиск и выбор определенного вида пиццы
+    public MainPage chooseTitlePizza(String title) {
+        for(WebElement name : titlePizza) {
+            if(name.getText().equals(title)) {
+                scrollToElement(name);
+                waitUntilVisible(name);
+                waitUntilClickable(name);
+                name.click();
+                break;
+            }
+        }
+        return this;
     }
 
     private void waitUntilClickable(WebElement buttonChoose) {
@@ -92,21 +99,29 @@ public class MainPage {
     }
 
     //проверка отображения заголовка в открытой карточке пиццы
-    public void checkPizza() {
-        waitUntilVisible(checkTitle);
-        checkTitle.isDisplayed();
+    public MainPage checkPizza(String title) {
+        for(WebElement name : checkingTitle) {
+            if(name.getText().equals(title)) {
+                waitUntilVisible(name);
+                name.isDisplayed();
+                break;
+            }
+        }
+        return this;
     }
 
     //добавление пиццы в корзину
-    public void addToBucket() {
+    public MainPage addToBucket() {
         buttonAdd.click();
+        return this;
     }
 
     //клик по кнопке Корзина
-    public void goToBucket() {
-        waitUntilVisible(bucket);
-        waitUntilClickable(bucket);
-        bucket.click();
+    public MainPage goToBucket() {
+        waitUntilVisible(buttonBucket);
+        waitUntilClickable(buttonBucket);
+        buttonBucket.click();
+        return this;
     }
 
     private void waitUntilVisible(WebElement bucket) {
@@ -115,6 +130,6 @@ public class MainPage {
 
     //проверка отображения заголовка в открытой корзине
     public void checkingBucket() {
-        waitUntilVisible(checkTitleBucket);
+        waitUntilVisible(checkingTitleBucket);
     }
 }

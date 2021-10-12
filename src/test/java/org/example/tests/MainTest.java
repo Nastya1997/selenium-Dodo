@@ -11,12 +11,12 @@ public class MainTest extends BaseTest{
 
     @Test
     public void loginTest() {
-        mainPage.chooseCity("Омск") // выбор найденного города из списка
-                .chooseMenu(); // выбор вида еды "Пицца"
-        mainPage.searchKindOfPizza(); // скролл до пиццы "Четыре сезона" и выбор
-        mainPage.checkPizza(); // открытие карточки пиццы и сверка, что открыта "Четыре сезона"
-        mainPage.addToBucket(); // добавление в корзину
-        mainPage.goToBucket(); // переход в корзину
-        mainPage.checkingBucket(); // проверка, что в корзине "Четыре сезона"
+        mainPage.chooseCity("Омск") // выбор города из списка
+                .chooseMenu("Пицца") // выбор вида еды "Пицца"
+                .chooseTitlePizza("Четыре сезона") // скролл до нужной пиццы и выбор
+                .checkPizza("Четыре сезона") // проверка, что открыта "Четыре сезона"
+                .addToBucket() // добавление в корзину
+                .goToBucket(); // переход в корзину
+               // .checkingBucket(); // проверка, что в корзине "Четыре сезона"
     }
 }
