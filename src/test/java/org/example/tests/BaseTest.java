@@ -1,5 +1,6 @@
 package org.example.tests;
 
+import configuration.ConfigProperties;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -11,8 +12,8 @@ public abstract class BaseTest {
 
     @BeforeClass
     public static void setup() {
-        initDriver();
-        getDriver().get("https://dodopizza.ru");
+        initDriver(ConfigProperties.getProperty("browsername"));
+        getDriver().get(ConfigProperties.getProperty("url"));
     }
 
     @AfterClass
