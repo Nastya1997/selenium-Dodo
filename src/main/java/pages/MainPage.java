@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 import static managers.DriverManager.getDriver;
@@ -39,7 +40,7 @@ public class MainPage {
     private List<WebElement> checkingTitle;
 
     //локатор для нахождения кнопки Корзина
-    @FindBy(xpath = "//button[contains(text(),'Корзина')]")
+    @FindBy(xpath = "//button[text()='Корзина']")
     private WebElement buttonBucket;
 
     //локатор для нахождения заголовка в открытой корзине
@@ -50,7 +51,7 @@ public class MainPage {
 //    private List<WebElement> menuBar;
 
     //клик по нужному городу
-    public MainPage chooseCity(String cityDesirable) {
+    public MainPage chooseCity(String cityDesirable) throws MalformedURLException {
         for (WebElement city : location) {
             if (city.getText().equals(cityDesirable)) {
                 scrollToElement(city);
@@ -75,7 +76,7 @@ public class MainPage {
     }
 
     //поиск и выбор определенного вида пиццы
-    public MainPage chooseTitlePizza(String title) {
+    public MainPage chooseTitlePizza(String title) throws MalformedURLException {
         for(WebElement name : titlePizza) {
             if(name.getText().equals(title)) {
                 scrollToElement(name);
@@ -93,7 +94,7 @@ public class MainPage {
     }
 
     //скролл к элементу
-    public void scrollToElement(WebElement element) {
+    public void scrollToElement(WebElement element) throws MalformedURLException {
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) getDriver();
         javascriptExecutor.executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
     }
@@ -112,6 +113,7 @@ public class MainPage {
 
     //добавление пиццы в корзину
     public MainPage addToBucket() {
+        waitUntilClickable(buttonAdd);
         buttonAdd.click();
         return this;
     }
