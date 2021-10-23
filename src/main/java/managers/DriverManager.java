@@ -27,8 +27,8 @@ public class DriverManager {
         }
         return driverWait;
     }
-    
-    public static WebDriver getDriver() throws MalformedURLException {
+    //throws MalformedURLException
+    public static WebDriver getDriver() {
         if (driver == null) {
             initDriver(ConfigProperties.getProperty("run"));
         }
@@ -38,11 +38,12 @@ public class DriverManager {
     public static WebDriverWait initWait(){
         return new WebDriverWait(driver, 10, 1000);
     }
-    
-    public static void initDriver(String typeRun) throws MalformedURLException {
+    //throws MalformedURLException
+    public static void initDriver(String typeRun)  {
         switch (typeRun) {
             case ("SELENOID"):
-                runWithSelenoid();
+                System.out.println("IT DOESN'T WORK!!!");
+                //runWithSelenoid();
                 break;
             case ("LOCAL"):
                 runLocal(ConfigProperties.getProperty("browsername"));
@@ -73,6 +74,7 @@ public class DriverManager {
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+
 
     }
 

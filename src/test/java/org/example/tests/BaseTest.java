@@ -13,13 +13,13 @@ public abstract class BaseTest {
 
 
     @BeforeClass
-    public static void setup() throws MalformedURLException {
+    public static void setup() {
         initDriver(ConfigProperties.getProperty("run"));
         getDriver().get(ConfigProperties.getProperty("url"));
     }
 
     @AfterClass
-    public static void closeBrowser() throws MalformedURLException {
+    public static void closeBrowser() {
         getDriver().quit();
     }
 }

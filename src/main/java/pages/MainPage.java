@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.net.MalformedURLException;
 import java.util.List;
 
 import static managers.DriverManager.getDriver;
@@ -51,7 +51,8 @@ public class MainPage {
 //    private List<WebElement> menuBar;
 
     //клик по нужному городу
-    public MainPage chooseCity(String cityDesirable) throws MalformedURLException {
+    @Step("Выбор города")
+    public MainPage chooseCity(String cityDesirable)  {
         for (WebElement city : location) {
             if (city.getText().equals(cityDesirable)) {
                 scrollToElement(city);
@@ -64,6 +65,7 @@ public class MainPage {
     }
 
     //клик по подменю Пицца
+    @Step("Choose menu")
     public MainPage chooseMenu(String menuType) {
         for(WebElement menu : menuBar) {
             if(menu.getText().equals(menuType)) {
@@ -76,7 +78,8 @@ public class MainPage {
     }
 
     //поиск и выбор определенного вида пиццы
-    public MainPage chooseTitlePizza(String title) throws MalformedURLException {
+    @Step("Search pizza")
+    public MainPage chooseTitlePizza(String title) {
         for(WebElement name : titlePizza) {
             if(name.getText().equals(title)) {
                 scrollToElement(name);
@@ -89,17 +92,19 @@ public class MainPage {
         return this;
     }
 
+    //ожидание пока элемент станет доступным для клика по нему
     private void waitUntilClickable(WebElement buttonChoose) {
         getWait().until(ExpectedConditions.elementToBeClickable(buttonChoose));
     }
 
     //скролл к элементу
-    public void scrollToElement(WebElement element) throws MalformedURLException {
+    public void scrollToElement(WebElement element) {
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) getDriver();
         javascriptExecutor.executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
     }
 
     //проверка отображения заголовка в открытой карточке пиццы
+    @Step("Check pizza")
     public MainPage checkPizza(String title) {
         for(WebElement name : checkingTitle) {
             if(name.getText().equals(title)) {
@@ -112,6 +117,7 @@ public class MainPage {
     }
 
     //добавление пиццы в корзину
+    @Step("Add to bucket")
     public MainPage addToBucket() {
         waitUntilClickable(buttonAdd);
         buttonAdd.click();
@@ -119,6 +125,7 @@ public class MainPage {
     }
 
     //клик по кнопке Корзина
+    @Step("Search")
     public MainPage goToBucket() {
         waitUntilVisible(buttonBucket);
         waitUntilClickable(buttonBucket);
@@ -126,6 +133,7 @@ public class MainPage {
         return this;
     }
 
+    //ожидание видимости элемента
     private void waitUntilVisible(WebElement bucket) {
         getWait().until(ExpectedConditions.visibilityOf(bucket));
     }
