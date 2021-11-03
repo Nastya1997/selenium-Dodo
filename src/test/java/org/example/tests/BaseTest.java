@@ -1,10 +1,8 @@
 package org.example.tests;
 
 import configuration.ConfigProperties;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-
-import java.net.MalformedURLException;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 
 import static managers.DriverManager.getDriver;
 import static managers.DriverManager.initDriver;
@@ -12,13 +10,13 @@ import static managers.DriverManager.initDriver;
 public abstract class BaseTest {
 
 
-    @BeforeClass
+    @BeforeAll
     public static void setup() {
         initDriver(ConfigProperties.getProperty("run"));
         getDriver().get(ConfigProperties.getProperty("url"));
     }
 
-    @AfterClass
+    @AfterAll
     public static void closeBrowser() {
         getDriver().quit();
     }

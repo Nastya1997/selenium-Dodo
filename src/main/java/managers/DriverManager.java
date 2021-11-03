@@ -27,7 +27,7 @@ public class DriverManager {
         }
         return driverWait;
     }
-    //throws MalformedURLException
+
     public static WebDriver getDriver() {
         if (driver == null) {
             initDriver(ConfigProperties.getProperty("run"));
@@ -38,12 +38,11 @@ public class DriverManager {
     public static WebDriverWait initWait(){
         return new WebDriverWait(driver, 10, 1000);
     }
-    //throws MalformedURLException
+
     public static void initDriver(String typeRun)  {
         switch (typeRun) {
             case ("SELENOID"):
-                System.out.println("IT DOESN'T WORK!!!");
-                //runWithSelenoid();
+                runWithSelenoid();
                 break;
             case ("LOCAL"):
                 runLocal(ConfigProperties.getProperty("browsername"));
@@ -78,7 +77,7 @@ public class DriverManager {
 
     }
 
-    private static void runWithSelenoid() throws MalformedURLException {
+    private static void runWithSelenoid()  {
         String browserSelenoid = ConfigProperties.getProperty("browsername");
         switch (browserSelenoid) {
             case ("chrome"):
@@ -86,7 +85,11 @@ public class DriverManager {
                 chromeOptions.setCapability("browserVersion", "80.0");
                 chromeOptions.setCapability("name", "dodo");
                 chromeOptions.setCapability("enableVNC", true);
-                driver = new RemoteWebDriver(new URL("http://161.35.194.216:4444/wd/hub"), chromeOptions);
+                try {
+                    driver = new RemoteWebDriver(new URL("http://161.35.194.216:4444/wd/hub"), chromeOptions);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
                 driver.manage().window().setSize(new Dimension(1920, 1080));
                 break;
             case ("opera"):
@@ -95,10 +98,11 @@ public class DriverManager {
                 capabilities.setBrowserName("opera");
                 capabilities.setVersion("67.0");
                 capabilities.setCapability("enableVNC", true);
-//                operaOptions.setCapability("browserVersion", "67.0");
-//                operaOptions.setCapability("name", "dodo");
-//                operaOptions.setCapability("enableVNC", true);
-                driver = new RemoteWebDriver(new URL("http://161.35.194.216:4444/wd/hub"), capabilities);
+                try {
+                    driver = new RemoteWebDriver(new URL("http://161.35.194.216:4444/wd/hub"), capabilities);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
                 driver.manage().window().setSize(new Dimension(1920, 1080));
                 break;
             case ("firefox"):
@@ -106,7 +110,11 @@ public class DriverManager {
                 firefoxOptions.setCapability("browserVersion", "75.0");
                 firefoxOptions.setCapability("name", "dodo");
                 firefoxOptions.setCapability("enableVNC", true);
-                driver = new RemoteWebDriver(new URL("http://161.35.194.216:4444/wd/hub"), firefoxOptions);
+                try {
+                    driver = new RemoteWebDriver(new URL("http://161.35.194.216:4444/wd/hub"), firefoxOptions);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
                 driver.manage().window().setSize(new Dimension(1920, 1080));
                 break;
         }

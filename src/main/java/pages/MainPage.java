@@ -65,7 +65,7 @@ public class MainPage {
     }
 
     //клик по подменю Пицца
-    @Step("Choose menu")
+    @Step("Выбор меню")
     public MainPage chooseMenu(String menuType) {
         for(WebElement menu : menuBar) {
             if(menu.getText().equals(menuType)) {
@@ -78,7 +78,7 @@ public class MainPage {
     }
 
     //поиск и выбор определенного вида пиццы
-    @Step("Search pizza")
+    @Step("Поиск и выбор определенного вида пиццы")
     public MainPage chooseTitlePizza(String title) {
         for(WebElement name : titlePizza) {
             if(name.getText().equals(title)) {
@@ -104,7 +104,7 @@ public class MainPage {
     }
 
     //проверка отображения заголовка в открытой карточке пиццы
-    @Step("Check pizza")
+    @Step("Проверка корректности заголовка в открытой карточке пиццы")
     public MainPage checkPizza(String title) {
         for(WebElement name : checkingTitle) {
             if(name.getText().equals(title)) {
@@ -117,7 +117,7 @@ public class MainPage {
     }
 
     //добавление пиццы в корзину
-    @Step("Add to bucket")
+    @Step("Добавление пиццы в корзину")
     public MainPage addToBucket() {
         waitUntilClickable(buttonAdd);
         buttonAdd.click();
@@ -125,7 +125,7 @@ public class MainPage {
     }
 
     //клик по кнопке Корзина
-    @Step("Search")
+    @Step("Клик по кнопке Корзина")
     public MainPage goToBucket() {
         waitUntilVisible(buttonBucket);
         waitUntilClickable(buttonBucket);
